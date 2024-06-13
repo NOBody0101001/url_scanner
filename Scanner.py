@@ -123,4 +123,4 @@ $R@i.~~ !     :   ~$$$$$B$$en:``
         print("Invalid choice. Please select option 1.")
 
 if __name__ == "__main__":
-    main(
+    main()
