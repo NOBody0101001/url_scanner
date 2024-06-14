@@ -39,7 +39,7 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 3. Ardından, bu GitHub deposunu klonlayın:
 
     ```bash
-    git clone [https://github.com/NOBody0101001/url_scanner]
+    git clone https://github.com/NOBody0101001/url_scanner
     ```
 
 4. Proje dizinine gidin:
