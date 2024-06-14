@@ -1,3 +1,5 @@
+## Son güncelleme tarihi:14/06/2024 23:56
+
 ⚠️This software is copyrighted, read the MIT License for details
 
 Bu yazılımın telif hakkı saklıdır, ayrıntılar için MIT Lisansını okuyun⚠️
