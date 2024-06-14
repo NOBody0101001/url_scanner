@@ -106,7 +106,7 @@ def url_scanner(url):
 # Main function to display the menu and handle user input
 def main():
     text_art = """
-\033[31m             :::!~!!!!!:.
+      \033[31m       :::!~!!!!!:.
                   .xUHWH!! !!?M88WHX:.
                 .X*#M@$!!  !X!M$$$$$$WWx:.
                :!!!!!!?H! :!$!$$$$$$$$$$8X:
@@ -125,7 +125,7 @@ W$@@M!!! .!~~ !!     .:XUW$W!~ `"~:    :
 .~~   :X@!.-~   ?@WTWo("*$$$W$TH$! `
 Wi.~!X$?!-~    : ?$$$B$Wu("**$RM!
 $R@i.~~ !     :   ~$$$$$B$$en:``
-?MXT@Wx.~    :     ~"##*$$$$M~                 \033[0m
+?MXT@Wx.~    :     ~"##*$$$$M~ \033[0m
 
     ========================================
                 Made by protocolhere :)
