@@ -54,9 +54,9 @@ def check_server_information(response):
     return None
 
 def check_cookie_security(response):
-    if "Set-Cookie" in response.headers:
-        cookies = response.headers.getlist('Set-Cookie')
-        insecure_cookies = [cookie for cookie in cookies if "Secure" not in cookie or "HttpOnly" not in cookie]
+    cookies = response.headers.get('Set-Cookie')
+    if cookies:
+        insecure_cookies = [cookie for cookie in cookies.split(',') if "Secure" not in cookie or "HttpOnly" not in cookie]
         if insecure_cookies:
             return "Güvensiz Çerezler Tespit Edildi (Secure ve HttpOnly bayrakları eksik)"
     return None
@@ -77,18 +77,22 @@ def url_scanner(url):
 
     soup = BeautifulSoup(response.content, 'html.parser')
 
+    # Check each type of vulnerability
     for check in [check_sql_injection, check_xss, check_csrf_protection, check_clickjacking_protection]:
         result = check(soup if check != check_clickjacking_protection else response)
         if result:
             vulnerabilities.append(result)
 
+    # Check security headers
     vulnerabilities.extend(check_security_headers(response))
 
+    # Check additional security aspects
     for check in [check_server_information, check_cookie_security]:
         result = check(response)
         if result:
             vulnerabilities.append(result)
 
+    # Print the vulnerabilities found
     if vulnerabilities:
         logging.info(f"{url} adresinde bulunan güvenlik açıkları:")
         for vulnerability in vulnerabilities:
@@ -96,9 +100,10 @@ def url_scanner(url):
     else:
         logging.info(f"{url} güvenli görünüyor")
 
+# Main function to display the menu and handle user input
 def main():
     text_art = """
-             \033[31m:::!~!!!!!:.
+\033[31m             :::!~!!!!!:.
                   .xUHWH!! !!?M88WHX:.
                 .X*#M@$!!  !X!M$$$$$$WWx:.
                :!!!!!!?H! :!$!$$$$$$$$$$8X:
