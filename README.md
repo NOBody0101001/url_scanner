@@ -92,5 +92,7 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 - socket: Ağ ile iletişim kurmak için
 - os: İşletim sistemi işlevlerine erişmek için
 
-## eksik veya hata
+## okumadan geçme
 Kod'da bir hata,eksik yada eklenmesi gereken bir şey varsa söyleyin ekleyim
+
+⚠️AYRICA LİSANSA Bİ GÖZ ATIN TELİF HAKLARINA BAKMANIZI ÖNERİRİM KODU PAYLAŞMADAN ÖNCE⚠️
