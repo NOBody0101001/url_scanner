@@ -61,7 +61,7 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 2. Python betiğini çalıştırın:
 
     ```bash
-    python scanner.py
+    python Scanner.py
     ```
 
 3. Açılan menüden "URL Tarayıcı" seçeneğini seçin.
@@ -75,7 +75,7 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 - Python betiğini çalıştırmak için:
 
     ```bash
-    python scanner.py
+    python Scanner.py
     ```
 
 - Gerekli Python paketlerini yüklemek için:
