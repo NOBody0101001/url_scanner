@@ -28,7 +28,7 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 
 ### Termux (Android) Kullanıcıları için:
 
-1. Termux uygulamasını indirin ve kurun. Eğer henüz yüklemediyseniz, [Google Play Store](https://play.google.com/store/apps/details?id=com.termux) veya [F-Droid](https://f-droid.org/packages/com.termux/) üzerinden indirebilirsiniz.
+1. Termux uygulamasını indirin ve kurun. Eğer yüklemediyseniz, [Google Play Store](https://play.google.com/store/apps/details?id=com.termux) veya [F-Droid](https://f-droid.org/packages/com.termux/) üzerinden indirin
 
 2. Termux uygulamasını açın ve Python'u yüklemek için aşağıdaki komutu çalıştırın:
 
@@ -91,3 +91,6 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 - logging: Uygulama günlüklerini yönetmek için kullanılır.
 - socket: Ağ ile iletişim kurmak için kullanılır.
 - os: İşletim sistemi işlevlerine erişmek için kullanılır.
+
+## eksik veya hata
+Kod'da bir hata,eksik yada eklenmesi gereken bir şey varsa söyleyin ekleyim
