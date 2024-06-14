@@ -63,6 +63,16 @@ def check_cookie_security(response):
 
 def url_scanner(url):
     vulnerabilities = []
+    checks = [
+        ("HTTPS Kullanımı", check_https_usage, url),
+        ("SQL Enjeksiyonu", check_sql_injection, None),
+        ("XSS (Cross-Site Scripting)", check_xss, None),
+        ("CSRF Koruma", check_csrf_protection, None),
+        ("Clickjacking Koruma", check_clickjacking_protection, None),
+        ("Güvenlik Başlıkları", check_security_headers, None),
+        ("Sunucu Bilgisi", check_server_information, None),
+        ("Çerez Güvenliği", check_cookie_security, None)
+    ]
 
     https_vuln = check_https_usage(url)
     if https_vuln:
@@ -78,17 +88,10 @@ def url_scanner(url):
     soup = BeautifulSoup(response.content, 'html.parser')
 
     # Check each type of vulnerability
-    for check in [check_sql_injection, check_xss, check_csrf_protection, check_clickjacking_protection]:
-        result = check(soup if check != check_clickjacking_protection else response)
-        if result:
-            vulnerabilities.append(result)
-
-    # Check security headers
-    vulnerabilities.extend(check_security_headers(response))
-
-    # Check additional security aspects
-    for check in [check_server_information, check_cookie_security]:
-        result = check(response)
+    for check_name, check_func, check_param in checks:
+        logging.info(f"{check_name} kontrol ediliyor...")
+        param = soup if check_func not in [check_clickjacking_protection, check_security_headers, check_server_information, check_cookie_security] else response
+        result = check_func(param if check_param is None else check_param)
         if result:
             vulnerabilities.append(result)
 
@@ -122,7 +125,7 @@ W$@@M!!! .!~~ !!     .:XUW$W!~ `"~:    :
 .~~   :X@!.-~   ?@WTWo("*$$$W$TH$! `
 Wi.~!X$?!-~    : ?$$$B$Wu("**$RM!
 $R@i.~~ !     :   ~$$$$$B$$en:``
-?MXT@Wx.~    :     ~"##*$$$$M~ \033[0m
+?MXT@Wx.~    :     ~"##*$$$$M~                 \033[0m
 
     ========================================
                 Made by protocolhere :)
