@@ -7,45 +7,58 @@ logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 def check_sql_injection(soup):
     sql_patterns = ["SELECT", "UNION", "INSERT", "UPDATE", "DELETE", "DROP"]
     if any(pattern in soup.text.upper() for pattern in sql_patterns):
-        return "Possible SQL Injection"
+        return "Olası SQL Enjeksiyonu"
     return None
 
 def check_xss(soup):
     if "<script>" in soup.prettify().lower():
-        return "Possible XSS"
+        return "Olası XSS (Cross-Site Scripting) Açığı"
     return None
 
 def check_csrf_protection(soup):
     forms = soup.find_all('form')
     for form in forms:
         if 'csrf' not in form.prettify().lower():
-            return "Missing CSRF Protection"
+            return "CSRF Koruma Eksikliği"
     return None
 
 def check_clickjacking_protection(response):
     if "X-Frame-Options" not in response.headers:
-        return "Missing Clickjacking Protection (X-Frame-Options)"
+        return "Clickjacking Koruma Eksikliği (X-Frame-Options Başlığı)"
     return None
 
 def check_security_headers(response):
     missing_headers = []
     security_headers = {
-        "Content-Security-Policy": "CSP",
-        "Strict-Transport-Security": "HSTS",
-        "X-Content-Type-Options": "XCTO",
-        "X-XSS-Protection": "XXSSP",
-        "Referrer-Policy": "Referrer Policy",
-        "Permissions-Policy": "Permissions Policy"
+        "Content-Security-Policy": "İçerik Güvenlik Politikası (CSP)",
+        "Strict-Transport-Security": "Katı Taşıma Güvenliği (HSTS)",
+        "X-Content-Type-Options": "İçerik Tipi Seçenekleri (XCTO)",
+        "X-XSS-Protection": "XSS Koruması (XXSSP)",
+        "Referrer-Policy": "Yönlendirme Politikası",
+        "Permissions-Policy": "İzinler Politikası"
     }
     for header, name in security_headers.items():
         if (response.headers.get(header) is None or 
             response.headers.get(header).strip() == ""):
-            missing_headers.append(f"Missing {name} Header ({header})")
+            missing_headers.append(f"{name} Başlığı Eksik ({header})")
     return missing_headers
 
 def check_https_usage(url):
     if not url.lower().startswith('https'):
-        return "URL does not use HTTPS"
+        return "URL HTTPS kullanmıyor"
+    return None
+
+def check_server_information(response):
+    if "Server" in response.headers:
+        return f"Sunucu Bilgisi: {response.headers['Server']}"
+    return None
+
+def check_cookie_security(response):
+    if "Set-Cookie" in response.headers:
+        cookies = response.headers.getlist('Set-Cookie')
+        insecure_cookies = [cookie for cookie in cookies if "Secure" not in cookie or "HttpOnly" not in cookie]
+        if insecure_cookies:
+            return "Güvensiz Çerezler Tespit Edildi (Secure ve HttpOnly bayrakları eksik)"
     return None
 
 def url_scanner(url):
@@ -59,32 +72,33 @@ def url_scanner(url):
         response = requests.get(url)
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
-        logging.error(f"Error accessing {url}: {e}")
+        logging.error(f"{url} adresine erişimde hata: {e}")
         return
 
     soup = BeautifulSoup(response.content, 'html.parser')
 
-    # Check each type of vulnerability
     for check in [check_sql_injection, check_xss, check_csrf_protection, check_clickjacking_protection]:
         result = check(soup if check != check_clickjacking_protection else response)
         if result:
             vulnerabilities.append(result)
 
-    # Check security headers
     vulnerabilities.extend(check_security_headers(response))
 
-    # Print the vulnerabilities found
+    for check in [check_server_information, check_cookie_security]:
+        result = check(response)
+        if result:
+            vulnerabilities.append(result)
+
     if vulnerabilities:
-        logging.info(f"Vulnerabilities found in {url}:")
+        logging.info(f"{url} adresinde bulunan güvenlik açıkları:")
         for vulnerability in vulnerabilities:
             logging.info(vulnerability)
     else:
-        logging.info(f"{url} appears to be secure")
+        logging.info(f"{url} güvenli görünüyor")
 
-# Main function to display the menu and handle user input
 def main():
     text_art = """
-       \033[31m      :::!~!!!!!:.
+             \033[31m:::!~!!!!!:.
                   .xUHWH!! !!?M88WHX:.
                 .X*#M@$!!  !X!M$$$$$$WWx:.
                :!!!!!!?H! :!$!$$$$$$$$$$8X:
@@ -114,13 +128,13 @@ $R@i.~~ !     :   ~$$$$$B$$en:``
     
     print(text_art)
     
-    choice = input("Please select an option: ")
+    choice = input("Lütfen bir seçenek seçin: ")
     
     if choice == "1":
-        url = input("Enter the URL: ")
+        url = input("URL girin: ")
         url_scanner(url)
     else:
-        print("Invalid choice. Please select option 1.")
+        print("Geçersiz seçim. Lütfen 1 numaralı seçeneği seçin.")
 
 if __name__ == "__main__":
     main()
