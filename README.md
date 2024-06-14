@@ -1,3 +1,8 @@
+⚠️This software is copyrighted, read the MIT License for details
+
+Bu yazılımın telif hakkı saklıdır, ayrıntılar için MIT Lisansını okuyun⚠️
+
+
 # URL Scanner
 
 Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak potansiyel güvenlik açıklarını tespit eder ve raporlar.
