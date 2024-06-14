@@ -100,7 +100,8 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 ## okumadan geçme
 Kod'da bir hata,eksik yada eklenmesi gereken bir şey varsa söyleyin ekleyim
 
-⚠️AYRICA LİSANSA Bİ GÖZ ATIN TELİF HAKLARINA BAKMANIZI ÖNERİRİM KODU PAYLAŞMADAN ÖNCE⚠️
+⚠️⚠️⚠️
+If you develop this software and add your own name, but if you do not indicate that the original software was made by protocolhere, the content may be removed and this is subject to copyright, be careful.
 
-telegram:@protocolhere
-beni bu sunucuda bulabilirsin: https://t.me/termuxtoolschat
+If you have a question or want to make a deal, please contact protocolhere via Telegram:
+https://t.me/protocolhere
