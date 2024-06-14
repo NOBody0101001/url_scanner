@@ -11,7 +11,7 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 2. Bu GitHub deposunu bilgisayarınıza klonlayın. Bunun için bir terminal açın ve aşağıdaki komutu çalıştırın:
 
     ```bash
-    git clone https://github.com/your_username/url-scanner.git
+    git clone https://github.com/NOBody0101001/url_scanner
     ```
 
 3. Terminali proje dizinine taşımak için aşağıdaki komutu kullanın:
@@ -39,7 +39,7 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 3. Ardından, bu GitHub deposunu klonlayın:
 
     ```bash
-    git clone https://github.com/your_username/url-scanner.git
+    git clone [https://github.com/NOBody0101001/url_scanner]
     ```
 
 4. Proje dizinine gidin:
@@ -86,11 +86,11 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 
 ## Kullanılan Modüller
 
-- requests: HTTP istekleri yapmak için kullanılır.
-- BeautifulSoup: HTML ve XML belgelerini ayrıştırmak için kullanılır.
-- logging: Uygulama günlüklerini yönetmek için kullanılır.
-- socket: Ağ ile iletişim kurmak için kullanılır.
-- os: İşletim sistemi işlevlerine erişmek için kullanılır.
+- requests: HTTP istekleri yapmak için
+- BeautifulSoup: HTML ve XML belgelerini ayrıştırmak için
+- logging: Uygulama günlüklerini yönetmek için
+- socket: Ağ ile iletişim kurmak için
+- os: İşletim sistemi işlevlerine erişmek için
 
 ## eksik veya hata
 Kod'da bir hata,eksik yada eklenmesi gereken bir şey varsa söyleyin ekleyim
