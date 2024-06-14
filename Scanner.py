@@ -1,8 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 import logging
+import socket
+import os
 
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+
+def clear_terminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def check_sql_injection(soup):
     sql_patterns = ["SELECT", "UNION", "INSERT", "UPDATE", "DELETE", "DROP"]
@@ -11,7 +16,8 @@ def check_sql_injection(soup):
     return None
 
 def check_xss(soup):
-    if "<script>" in soup.prettify().lower():
+    xss_patterns = ["<script>", "javascript:", "onerror=", "onload="]
+    if any(pattern in soup.prettify().lower() for pattern in xss_patterns):
         return "Olası XSS (Cross-Site Scripting) Açığı"
     return None
 
@@ -38,8 +44,7 @@ def check_security_headers(response):
         "Permissions-Policy": "İzinler Politikası"
     }
     for header, name in security_headers.items():
-        if (response.headers.get(header) is None or 
-            response.headers.get(header).strip() == ""):
+        if response.headers.get(header) is None or response.headers.get(header).strip() == "":
             missing_headers.append(f"{name} Başlığı Eksik ({header})")
     return missing_headers
 
@@ -60,6 +65,26 @@ def check_cookie_security(response):
         if insecure_cookies:
             return "Güvensiz Çerezler Tespit Edildi (Secure ve HttpOnly bayrakları eksik)"
     return None
+
+def port_scanner(host):
+    open_ports = []
+    filtered_ports = []
+    closed_ports = []
+    common_ports = [21, 22, 23, 25, 53, 80, 110, 123, 135, 139, 143, 443, 445, 3389]
+
+    for port in common_ports:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(1)
+        result = sock.connect_ex((host, port))
+        if result == 0:
+            open_ports.append(port)
+        elif result == 1:
+            closed_ports.append(port)
+        else:
+            filtered_ports.append(port)
+        sock.close()
+    
+    return open_ports, closed_ports, filtered_ports
 
 def url_scanner(url):
     vulnerabilities = []
@@ -95,6 +120,16 @@ def url_scanner(url):
         if result:
             vulnerabilities.append(result)
 
+    # Check for open ports
+    try:
+        host = url.split("//")[-1].split("/")[0]
+        open_ports, closed_ports, filtered_ports = port_scanner(host)
+        vulnerabilities.append(f"Açık Portlar: {open_ports}")
+        vulnerabilities.append(f"Kapalı Portlar: {closed_ports}")
+        vulnerabilities.append(f"Filtreli Portlar: {filtered_ports}")
+    except Exception as e:
+        logging.error(f"Port taraması yapılamadı: {e}")
+
     # Print the vulnerabilities found
     if vulnerabilities:
         logging.info(f"{url} adresinde bulunan güvenlik açıkları:")
@@ -103,10 +138,11 @@ def url_scanner(url):
     else:
         logging.info(f"{url} güvenli görünüyor")
 
-# Main function to display the menu and handle user input
 def main():
+    clear_terminal()
+
     text_art = """
-      \033[31m       :::!~!!!!!:.
+\033[31m             :::!~!!!!!:.
                   .xUHWH!! !!?M88WHX:.
                 .X*#M@$!!  !X!M$$$$$$WWx:.
                :!!!!!!?H! :!$!$$$$$$$$$$8X:
@@ -115,7 +151,7 @@ def main():
              ~!~!!!!~~ .:XW$$$U!!?$$$$$$RMM!
                !:~~~ .:!M"T#$$$$WX??#MRRMMM!
                ~?WuxiW*`   `"#$$$$8!!!!??!!!
-             :X- M$$$$   •   `"T#$T~!8$WUXU~
+             :X- M$$$$    •  `"T#$T~!8$WUXU~
             :%`  ~#$$$m:        ~!~ ?$$$$$$
           :!`.-   ~T$$$$8xx.  .xWW- ~""##*"
 .....   -~~:<` !    ~?T#$$@@W@*?$$   •  /`
@@ -130,19 +166,30 @@ $R@i.~~ !     :   ~$$$$$B$$en:``
     ========================================
                 Made by protocolhere :)
     ========================================
-    1. url scanner
+    1. URL Tarayıcı
+    2. Çıkış
     ========================================
     """
     
-    print(text_art)
+    while True:
+        print(text_art)
     
-    choice = input("Lütfen bir seçenek seçin: ")
+        choice = input("Lütfen bir seçenek seçin: ")
     
-    if choice == "1":
-        url = input("URL girin: ")
-        url_scanner(url)
-    else:
-        print("Geçersiz seçim. Lütfen 1 numaralı seçeneği seçin.")
+        if choice == "1":
+            url = input("URL girin: ")
+            url_scanner(url)
+            another_scan = input("Başka bir tarama yapmak istiyor musunuz? (y/n): ").lower()
+            if another_scan != 'y':
+                break
+            clear_terminal()
+        elif choice == "2":
+            clear_terminal()
+            print("\033[33mKullandığınız için teşekkürler :)\033[0m")
+            break
+        else:
+            print("Geçersiz seçim. Lütfen 1 veya 2 numaralı seçeneği seçin.")
+            clear_terminal()
 
 if __name__ == "__main__":
     main()
