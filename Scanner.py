@@ -112,7 +112,6 @@ def url_scanner(url):
 
     soup = BeautifulSoup(response.content, 'html.parser')
 
-    # Check each type of vulnerability
     for check_name, check_func, check_param in checks:
         logging.info(f"{check_name} kontrol ediliyor...")
         param = soup if check_func not in [check_clickjacking_protection, check_security_headers, check_server_information, check_cookie_security] else response
@@ -120,7 +119,6 @@ def url_scanner(url):
         if result:
             vulnerabilities.append(result)
 
-    # Check for open ports
     try:
         host = url.split("//")[-1].split("/")[0]
         open_ports, closed_ports, filtered_ports = port_scanner(host)
@@ -130,7 +128,6 @@ def url_scanner(url):
     except Exception as e:
         logging.error(f"Port taraması yapılamadı: {e}")
 
-    # Print the vulnerabilities found
     if vulnerabilities:
         logging.info(f"{url} adresinde bulunan güvenlik açıkları:")
         for vulnerability in vulnerabilities:
@@ -142,7 +139,7 @@ def main():
     clear_terminal()
 
     text_art = """
-\033[31m             :::!~!!!!!:.
+             \033[31m :::!~!!!!!:.
                   .xUHWH!! !!?M88WHX:.
                 .X*#M@$!!  !X!M$$$$$$WWx:.
                :!!!!!!?H! :!$!$$$$$$$$$$8X:
@@ -151,10 +148,10 @@ def main():
              ~!~!!!!~~ .:XW$$$U!!?$$$$$$RMM!
                !:~~~ .:!M"T#$$$$WX??#MRRMMM!
                ~?WuxiW*`   `"#$$$$8!!!!??!!!
-             :X- M$$$$    •  `"T#$T~!8$WUXU~
+             :X- M$$$$   •   `"T#$T~!8$WUXU~
             :%`  ~#$$$m:        ~!~ ?$$$$$$
           :!`.-   ~T$$$$8xx.  .xWW- ~""##*"
-.....   -~~:<` !    ~?T#$$@@W@*?$$   •  /`
+.....   -~~:<` !    ~?T#$$@@W@*?$$  •   /`
 W$@@M!!! .!~~ !!     .:XUW$W!~ `"~:    :
 #"~~`.:x%`!!  !H:   !WM$$$$Ti.: .!WUn+!`
 :::~:!!`:X~ .: ?H.!u "$$$B$$$!W:U!T$$M~
