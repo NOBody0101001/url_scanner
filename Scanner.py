@@ -181,7 +181,7 @@ $R@i.~~ !     :   ~$$$$$B$$en:``
     
         if choice == "1":
             url = input("URL girin: ")
-url_scanner(url)
+            url_scanner(url)
             another_scan = input("Başka bir tarama yapmak istiyor musunuz? (y/n): ").lower()
             if another_scan != 'y':
                 break
