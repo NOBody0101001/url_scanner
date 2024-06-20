@@ -24,7 +24,7 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 3. Terminali proje dizinine taşımak için aşağıdaki komutu kullanın:
 
     ```bash
-    cd url-scanner
+    cd Scanner.py
     ```
 
 4. Gerekli Python paketlerini yükleyin:
@@ -52,7 +52,7 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 4. Proje dizinine gidin:
 
     ```bash
-    cd url-scanner
+    cd Scanner.py
     ```
 
 5. Gerekli Python paketlerini yükleyin:
