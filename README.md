@@ -24,7 +24,7 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 3. Terminali proje dizinine taşımak için aşağıdaki komutu kullanın:
 
     ```bash
-    cd Scanner.py
+    cd obf-urlscanner.py
     ```
 
 4. Gerekli Python paketlerini yükleyin:
@@ -52,7 +52,7 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 4. Proje dizinine gidin:
 
     ```bash
-    cd Scanner.py
+    cd obf-urlscanner.py
     ```
 
 5. Gerekli Python paketlerini yükleyin:
@@ -68,7 +68,7 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 2. Python betiğini çalıştırın:
 
     ```bash
-    python Scanner.py
+    python obf-urlscanner.py
     ```
 
 3. Açılan menüden "URL Tarayıcı" seçeneğini seçin.
@@ -82,7 +82,7 @@ Bu basit Python betiği, verilen bir URL üzerinde güvenlik kontrolleri yaparak
 - Python betiğini çalıştırmak için:
 
     ```bash
-    python Scanner.py
+    python obf-urlscanner.py
     ```
 
 - Gerekli Python paketlerini yüklemek için:
@@ -106,4 +106,4 @@ Kod'da bir hata,eksik yada eklenmesi gereken bir şey varsa söyleyin ekleyim
 If you develop this software and add your own name, but if you do not indicate that the original software was made by protocolhere, the content may be removed and this is subject to copyright, be careful.
 
 If you have a question or want to make a deal, please contact protocolhere via Telegram:
-https://t.me/protocolhere
+https://t.me/Protocolhere
